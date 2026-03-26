@@ -1,6 +1,20 @@
 package models
 
-var ErrosSlice = map[string]string{
-	"ErroAberturaPostgres": "Erro ao tentar abrir o Postgres.",
-	"ErroConexaoPostgres":  "Erro ao tentar conectar ao Postgres.",
+import "log"
+
+type GerenciadorErro struct {
+	Mensagem string
 }
+
+func (e GerenciadorErro) Log(err error) {
+	log.Printf("⚠️ %s | Detalhes: %v", e.Mensagem, err)
+}
+
+func (e GerenciadorErro) Fatal(err error) {
+	log.Fatalf("❌ FATAL: %s | Detalhes: %v", e.Mensagem, err)
+}
+
+var (
+	ErroAberturaPostgres = GerenciadorErro{"Erro ao tentar abrir o Postgres"}
+	ErroConexaoPostgres  = GerenciadorErro{"Erro ao tentar conectar ao Postgres."}
+)
