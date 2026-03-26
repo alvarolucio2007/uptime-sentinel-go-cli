@@ -2,6 +2,6 @@
 package models
 
 type ModeloLink struct {
-	URL             string
-	PeriodoSegundos uint
+	URL             string `db:"URL" json:"url"`
+	PeriodoSegundos uint   `db:"PeriodoSegundos" json:"periodo_segundos"`
 }
