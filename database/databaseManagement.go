@@ -31,5 +31,8 @@ func MigrarBanco() error {
 		PeriodoSegundos INTEGER NOT NULL DEFAULT 0
 	);`
 	if _, err := DB.Exec(query); err != nil {
+		return err
 	}
+	fmt.Println("Tabela pronta para uso.")
+	return nil
 }
