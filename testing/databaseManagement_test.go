@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/alvarolucio2007/uptime-sentinel-go-cli/database"
+	"github.com/alvarolucio2007/uptime-sentinel-go-cli/models"
 )
 
 func TestPostgres(t *testing.T) {
@@ -13,12 +14,9 @@ func TestPostgres(t *testing.T) {
 
 func testarPostgres(t *testing.T) {
 	database.ConectarDatabase()
-	entradaDB := [2]struct {
-		link            string
-		periodoSegundos uint
-	}{
-		{"https://google.com", 10},
-		{"https://github.com", 10},
+	entradaDB := [2]models.ModeloLink{
+		{URL: "https://google.com", PeriodoSegundos: 10},
+		{URL: "https://github.com", PeriodoSegundos: 10},
 	}
 	for _, entrada := range entradaDB {
 	}
