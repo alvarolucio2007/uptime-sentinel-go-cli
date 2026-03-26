@@ -4,7 +4,6 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
 	"github.com/alvarolucio2007/uptime-sentinel-go-cli/models"
 	_ "github.com/jackc/pgx/v5/stdlib"
@@ -17,12 +16,20 @@ func ConectarDatabase() error {
 	dsn := "host=pg_sentinel user=user password=password dbname=sentinel sslmode=disabled"
 	DB, err = sql.Open("pgx", dsn)
 	if err != nil {
-		log.Printf("%s. Detalhes: %+v ", models.ErrosSlice["ErroAberturaPostgres"], err)
+		models.ErroAberturaPostgres.Fatal(err)
 	}
-	err = DB.Ping()
-	if err != nil {
-		log.Printf("%s. Detalhes:")
+	if err = DB.Ping(); err != nil {
+		models.ErroConexaoPostgres.Fatal(err)
 	}
 	fmt.Println("Postgres conectado")
 	return nil
+}
+
+func MigrarBanco() error {
+	query := `CREATE TABLE IF NOT EXISTS linksSentinel (
+		URL TEXT UNIQUE NOT NULL,
+		PeriodoSegundos INTEGER NOT NULL DEFAULT 0
+	);`
+	if _, err := DB.Exec(query); err != nil {
+	}
 }
