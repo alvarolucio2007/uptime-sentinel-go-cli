@@ -15,7 +15,12 @@ func (e GerenciadorErro) Fatal(err error) {
 }
 
 var (
+	//Erros Setup e migração do PostgreSQL
 	ErroAberturaPostgres = GerenciadorErro{"Erro ao tentar abrir o Postgres: "}
 	ErroConexaoPostgres  = GerenciadorErro{"Erro ao tentar conectar ao Postgres: "}
 	ErroMigracaoPostgres = GerenciadorErro{"Erro na migração do Postgres: "}
+
+	//Erros de inserção no PostgreSQL
+	ErroEntradaPostgres = GerenciadorErro{"Erro ao criar item: "},
+	
 )
