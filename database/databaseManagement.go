@@ -36,3 +36,12 @@ func MigrarBanco() error {
 	fmt.Println("Tabela pronta para uso.")
 	return nil
 }
+
+func CriarEntradaPostgres(URL string, periodo uint) error {
+	query := "INSERT INTO linksSentinel (URL,PeriodoSegundos) VALUES ($1,$2)"
+	if _, err := DB.Exec(query, URL, periodo); err != nil {
+		models.ErroEntradaPostgres.Log(err)
+		return err
+	}
+	return nil
+}
