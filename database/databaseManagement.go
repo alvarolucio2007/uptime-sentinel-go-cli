@@ -13,7 +13,7 @@ var DB *sql.DB
 
 func ConectarDatabase() error {
 	var err error
-	dsn := "host=pg_sentinel user=user password=password dbname=sentinel sslmode=disabled"
+	dsn := "host=localhost user=user password=password dbname=sentinel sslmode=disable"
 	DB, err = sql.Open("pgx", dsn)
 	if err != nil {
 		models.ErroAberturaPostgres.Fatal(err)
