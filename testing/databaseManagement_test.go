@@ -9,15 +9,24 @@ import (
 
 func TestPostgres(t *testing.T) {
 	t.Run("Fluxo Completo Postgres", func(t *testing.T) {
+		testarPostgres(t)
 	})
 }
 
 func testarPostgres(t *testing.T) {
-	database.ConectarDatabase()
+	if err := database.ConectarDatabase(); err != nil {
+		t.Errorf("Erro ao se conectar à base de dados: %v", err)
+	}
+	if err := database.MigrarBanco(); err != nil {
+		t.Errorf("Erro ao migrar a base de dados: %v", err)
+	}
 	entradaDB := [2]models.ModeloLink{
 		{URL: "https://google.com", PeriodoSegundos: 10},
 		{URL: "https://github.com", PeriodoSegundos: 10},
 	}
 	for _, entrada := range entradaDB {
+		if err := database.CriarEntradaPostgres(entrada.URL, entrada.PeriodoSegundos); err != nil {
+			t.Errorf("Erro ao adicionar livro: %v", err)
+		}
 	}
 }
