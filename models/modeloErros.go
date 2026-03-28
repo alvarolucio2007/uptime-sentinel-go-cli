@@ -23,3 +23,11 @@ var (
 	// Erros de inserção no PostgreSQL
 	ErroEntradaPostgres = GerenciadorErro{"Erro ao criar item: "}
 )
+
+// Erros setup cache
+var (
+	ErroAberturaCache    = GerenciadorErro{"Erro ao tentar abrir o Cache: "}
+	ErroConexaoPingCache = GerenciadorErro{"Erro ao receber o ping do cache: "}
+	ErroSetCache         = GerenciadorErro{"Erro ao dar set no cache: "}
+	ErroGetCache         = GerenciadorErro{"Erro ao pegar a informação do cache: "}
+)
