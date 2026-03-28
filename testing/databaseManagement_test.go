@@ -17,6 +17,10 @@ func testarPostgres(t *testing.T) {
 	if err := database.ConectarDatabase(); err != nil {
 		t.Errorf("Erro ao se conectar à base de dados: %v", err)
 	}
+	query := "TRUNCATE TABLE linksSentinel"
+	if _, err := database.DB.Exec(query); err != nil {
+		t.Errorf("Erro ao deletar a base de dados: %v", err)
+	}
 	if err := database.MigrarBanco(); err != nil {
 		t.Errorf("Erro ao migrar a base de dados: %v", err)
 	}
