@@ -17,7 +17,7 @@ func testarPostgres(t *testing.T) {
 	if err := database.ConectarDatabase(); err != nil {
 		t.Errorf("Erro ao se conectar à base de dados: %v", err)
 	}
-	query := "TRUNCATE TABLE linksSentinel"
+	query := "DROP TABLE IF EXISTS linksSentinel"
 	if _, err := database.DB.Exec(query); err != nil {
 		t.Errorf("Erro ao deletar a base de dados: %v", err)
 	}
@@ -25,11 +25,11 @@ func testarPostgres(t *testing.T) {
 		t.Errorf("Erro ao migrar a base de dados: %v", err)
 	}
 	entradaDB := [2]models.ModeloLink{
-		{URL: "https://google.com", PeriodoSegundos: 10},
-		{URL: "https://github.com", PeriodoSegundos: 10},
+		{URL: "https://google.com", PeriodoSegundos: 10, StatusEsperado: uint(101)}, // StatusEsperado só placeholder msm kk
+		{URL: "https://github.com", PeriodoSegundos: 10, StatusEsperado: uint(101)},
 	}
 	for _, entrada := range entradaDB {
-		if err := database.CriarEntradaPostgres(entrada.URL, entrada.PeriodoSegundos); err != nil {
+		if err := database.CriarEntradaPostgres(entrada.URL, entrada.PeriodoSegundos, entrada.StatusEsperado); err != nil {
 			t.Errorf("Erro ao adicionar livro: %v", err)
 		}
 	}
