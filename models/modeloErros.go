@@ -22,6 +22,7 @@ var (
 
 	// Erros de inserção no PostgreSQL
 	ErroEntradaPostgres = GerenciadorErro{"Erro ao criar item: "}
+	ErroDeletePostgres  = GerenciadorErro{"Erro ao deletar item: "}
 )
 
 // Erros setup cache
