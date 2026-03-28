@@ -4,6 +4,7 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	"github.com/alvarolucio2007/uptime-sentinel-go-cli/models"
 	_ "github.com/jackc/pgx/v5/stdlib"
@@ -50,4 +51,15 @@ func CriarEntradaPostgres(URL string, periodo, statusEsperado uint) error {
 }
 
 func DeletarEntradaPostgres(ID string) error {
+	query := "DELETE FROM linksSentinel WHERE ID=$1"
+	res, err := DB.Exec(query, ID)
+	if err != nil {
+		models.ErroDeletePostgres.Log(err)
+		return err
+	}
+	qtd, _ := res.RowsAffected()
+	if qtd == 0 {
+		log.Println("ID inexistente, nada deletado.")
+	}
+	return nil
 }
