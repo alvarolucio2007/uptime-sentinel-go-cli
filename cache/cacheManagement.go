@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	ctx = context.Background()
+	Ctx = context.Background()
 	RDB *redis.Client
 )
 
@@ -19,9 +19,21 @@ func ConectarCache() error {
 		Password: "",
 		DB:       0,
 	})
-	if err := RDB.Ping(ctx).Err(); err != nil {
+	if err := RDB.Ping(Ctx).Err(); err != nil {
 		models.ErroConexaoPingCache.Log(err)
 		return err
 	}
 	return nil
+}
+
+func AdicionarLinkValkey(ID, url string) error {
+	return RDB.Set(Ctx, ID, url, 0).Err()
+}
+
+func BuscarLinkRedis(ID string) (string, error) {
+	return RDB.Get(Ctx, ID).Result()
+}
+
+func DeletarLinkRedis(ID string) error {
+	return RDB.Del(Ctx, ID).Err()
 }
