@@ -28,7 +28,7 @@ func ConectarDatabase() error {
 
 func MigrarBanco() error {
 	query := `CREATE TABLE IF NOT EXISTS linksSentinel (
-		ID NATURAL SERIAL PRIMARY KEY,
+		ID SERIAL PRIMARY KEY,
 		URL TEXT UNIQUE NOT NULL,
 		PeriodoSegundos INTEGER NOT NULL DEFAULT 0,
 		StatusEsperado INTEGER NOT NULL
