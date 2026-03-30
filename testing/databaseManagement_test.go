@@ -19,7 +19,7 @@ func testarPostgres(t *testing.T) {
 	}
 	query := "DROP TABLE IF EXISTS linksSentinel"
 	if _, err := database.DB.Exec(query); err != nil {
-		t.Errorf("Erro ao deletar a base de dados: %v", err)
+		t.Errorf("Erro ao limpar a base de dados: %v", err)
 	}
 	if err := database.MigrarBanco(); err != nil {
 		t.Errorf("Erro ao migrar a base de dados: %v", err)
