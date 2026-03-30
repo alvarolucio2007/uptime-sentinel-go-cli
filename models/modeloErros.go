@@ -27,8 +27,9 @@ var (
 
 // Erros setup cache
 var (
-	ErroAberturaCache    = GerenciadorErro{"Erro ao tentar abrir o Cache: "}
-	ErroConexaoPingCache = GerenciadorErro{"Erro ao receber o ping do cache: "}
-	ErroSetCache         = GerenciadorErro{"Erro ao dar set no cache: "}
-	ErroGetCache         = GerenciadorErro{"Erro ao pegar a informação do cache: "}
+	ErroAberturaCache       = GerenciadorErro{"Erro ao tentar abrir o Cache: "}
+	ErroConexaoPingCache    = GerenciadorErro{"Erro ao receber o ping do cache: "}
+	ErroMarshalJSONSetCache = GerenciadorErro{"Erro ao transformar dados em JSON: "}
+	ErroSetCache            = GerenciadorErro{"Erro ao dar set no cache: "}
+	ErroGetCache            = GerenciadorErro{"Erro ao pegar a informação do cache: "}
 )
