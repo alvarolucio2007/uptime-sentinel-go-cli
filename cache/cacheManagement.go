@@ -3,6 +3,8 @@ package cache
 
 import (
 	"context"
+	"encoding/json"
+	"time"
 
 	"github.com/alvarolucio2007/uptime-sentinel-go-cli/models"
 	"github.com/redis/go-redis/v9"
@@ -26,8 +28,13 @@ func ConectarCache() error {
 	return nil
 }
 
-func AdicionarLinkValkey(ID, url string) error {
-	return RDB.Set(Ctx, ID, url, 0).Err()
+func AdicionarLinkValkey(ID string, url *models.ModeloLink) error {
+	dados, err := json.Marshal(url)
+	if err != nil {
+		models.ErroMarshalJSONSetCache.Log(err)
+		return err
+	}
+	return RDB.Set(Ctx, ID, dados, 24*time.Hour).Err()
 }
 
 func BuscarLinkRedis(ID string) (string, error) {
