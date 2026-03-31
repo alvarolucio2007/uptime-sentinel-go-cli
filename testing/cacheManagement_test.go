@@ -1,6 +1,8 @@
 package testing
 
 import (
+	"encoding/json"
+	"strconv"
 	"testing"
 
 	"github.com/alvarolucio2007/uptime-sentinel-go-cli/cache"
@@ -17,15 +19,22 @@ func testarValkey(t *testing.T) {
 	if err := cache.ConectarCache(); err != nil {
 		t.Errorf("Erro ao se concectar ao cache: %v", err)
 	}
-	ID, urlOriginal := "1000", &models.ModeloLink{ID: 1000, URL: "https://google.com", PeriodoSegundos: 2, StatusEsperado: 200}
-	if err := cache.AdicionarLinkValkey(ID, urlOriginal); err != nil {
+	urlOriginal := &models.ModeloLink{ID: 1000, URL: "https://google.com", PeriodoSegundos: 2, StatusEsperado: 200}
+	IDString := strconv.Itoa(urlOriginal.ID)
+	if err := cache.AdicionarLinkValkey(IDString, urlOriginal); err != nil {
 		t.Errorf("Erro ao adicionar link ao valkey: %v", err)
 	}
-	urlRecuperada, err := cache.BuscarLinkValkey("1000")
+	jsonRecuperado, err := cache.BuscarLinkValkey(IDString)
 	if err != nil {
 		t.Errorf("Erro ao buscar link no valkey: %v", err)
 	}
-	if urlRecuperada != urlOriginal.URL {
+	var linkFinal models.ModeloLink
+	if err := json.Unmarshal([]byte(jsonRecuperado), &linkFinal); err != nil {
+	}
+	if linkFinal.URL != urlOriginal.URL {
 		t.Errorf("Erro ao comparar URL recuperada e URL original, recebi %s e recebi %s", urlOriginal.URL, urlRecuperada)
+	}
+	if err := cache.DeletarLinkValkey(IDString); err != nil {
+		t.Errorf("Erro ao deletar link: %v", err)
 	}
 }
