@@ -37,10 +37,10 @@ func AdicionarLinkValkey(ID string, url *models.ModeloLink) error {
 	return RDB.Set(Ctx, ID, dados, 24*time.Hour).Err()
 }
 
-func BuscarLinkRedis(ID string) (string, error) {
+func BuscarLinkValkey(ID string) (string, error) {
 	return RDB.Get(Ctx, ID).Result()
 }
 
-func DeletarLinkRedis(ID string) error {
+func DeletarLinkValkey(ID string) error {
 	return RDB.Del(Ctx, ID).Err()
 }
