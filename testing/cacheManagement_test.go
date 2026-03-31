@@ -30,9 +30,10 @@ func testarValkey(t *testing.T) {
 	}
 	var linkFinal models.ModeloLink
 	if err := json.Unmarshal([]byte(jsonRecuperado), &linkFinal); err != nil {
+		t.Errorf("Erro ao fazer Unmarshal do JSON recuperado: %v", err)
 	}
 	if linkFinal.URL != urlOriginal.URL {
-		t.Errorf("Erro ao comparar URL recuperada e URL original, recebi %s e recebi %s", urlOriginal.URL, urlRecuperada)
+		t.Errorf("Erro ao comparar URL recuperada e URL original, recebi %s e recebi %s", urlOriginal.URL, linkFinal.URL)
 	}
 	if err := cache.DeletarLinkValkey(IDString); err != nil {
 		t.Errorf("Erro ao deletar link: %v", err)
