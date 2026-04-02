@@ -43,5 +43,6 @@ var (
 
 // Erros validação
 var (
-	ErroValidacaoURL = GerenciadorErro{"Erro ao validar o URL: "}
+	ErroValidacaoURL    = GerenciadorErro{"Erro ao validar o URL: "}
+	ErroValidacaoStatus = GerenciadorErro{"Erro ao validar o Status: "}
 )
