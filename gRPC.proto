@@ -3,5 +3,4 @@ message LinkURLSemID{
   string URL=1;
   uint64 PeriodoSegundos=2;
   uint32 StatusEsperado=3;
-
 }
