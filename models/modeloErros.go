@@ -40,3 +40,10 @@ var (
 var (
 	ErroDecodeJSONAPIExterna = GerenciadorErro{"Erro ao tentar decodar JSON da API externa: "}
 )
+
+// Erros validação
+var (
+	ErroValidarURLParse           = GerenciadorErro{"Erro ao fazer parse do URL: "}
+	ErroValidarSchemeURL          = GerenciadorErro{"Erro ao validar o scheme ou host do URL: "}
+	ErroValidarSchemeHTTPHTTPSURL = GerenciadorErro{"Erro pois o scheme não é nem http nem https: "}
+)
