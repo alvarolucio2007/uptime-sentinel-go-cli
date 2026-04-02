@@ -2,24 +2,45 @@
 package verifiers
 
 import (
+	"errors"
 	"net/url"
 	"slices"
 	"strings"
+
+	"github.com/alvarolucio2007/uptime-sentinel-go-cli/models"
 )
 
-func ValidarURL(URL string) bool {
+func validarURL(URL string) error {
 	u, err := url.Parse(URL)
 	if err != nil {
-		return false
+		return err
 	}
 	if u.Scheme == "" || u.Host == "" {
-		return false
+		return errors.New("Erro ao verificar se o host ou scheme do URL")
 	}
 	scheme := strings.ToLower(u.Scheme)
-	return scheme == "http" || scheme == "https"
+	if scheme == "http" || scheme == "https" {
+		return nil
+	}
+	return errors.New("Scheme não é http nem https ")
 }
 
-func ValidarStatus(statusChecar uint) bool {
+func validarStatus(statusChecar uint) error {
 	listaStatus := []uint{200, 201, 204, 301, 400, 401, 404}
-	return slices.Contains(listaStatus, statusChecar)
+	if !slices.Contains(listaStatus, statusChecar) {
+		return errors.New("Status não está na lista de status aceitos")
+	}
+	return nil
+}
+
+func ValidacaoCompleta(linkJSON *models.ModeloLink) error {
+	if err := validarURL(linkJSON.URL); err != nil {
+		models.ErroValidacaoURL.Log(err)
+		return err
+	}
+	if err := validarStatus(linkJSON.StatusEsperado); err != nil {
+		models.ErroValidacaoStatus.Log(err)
+		return err
+	}
+	return nil
 }
