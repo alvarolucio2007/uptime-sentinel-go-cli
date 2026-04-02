@@ -16,13 +16,13 @@ func validarURL(URL string) error {
 		return err
 	}
 	if u.Scheme == "" || u.Host == "" {
-		return errors.New("Erro ao verificar se o host ou scheme do URL")
+		return errors.New("erro ao verificar se o host ou scheme do URL")
 	}
 	scheme := strings.ToLower(u.Scheme)
 	if scheme == "http" || scheme == "https" {
 		return nil
 	}
-	return errors.New("Scheme não é http nem https ")
+	return errors.New("scheme não é http nem https ")
 }
 
 func validarStatus(statusChecar uint) error {
