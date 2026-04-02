@@ -15,6 +15,7 @@ func HandlerAdd(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 	if err := verifiers.ValidacaoCompleta(input); err != nil {
-		// Tenho que retornar bad request mas n lembro como é, vou fazer os testes da validação kk
+		http.Error(w, models.ErroValidacaoStatus.Mensagem, http.StatusBadRequest)
+		return err
 	}
 }
