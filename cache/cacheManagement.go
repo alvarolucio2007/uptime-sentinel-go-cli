@@ -38,7 +38,13 @@ func AdicionarLinkValkey(ID string, url *models.ModeloLink) error {
 }
 
 func BuscarLinkValkey(ID string) (string, error) {
-	return RDB.Get(Ctx, ID).Result()
+	var resultado string
+	var err error
+	if resultado, err = RDB.Get(Ctx, ID).Result(); err != nil {
+		models.ErroBuscarLinkCache.Log(err)
+		return "", err
+	}
+	return resultado, nil
 }
 
 func DeletarLinkValkey(ID string) error {
