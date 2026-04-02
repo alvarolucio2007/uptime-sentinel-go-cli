@@ -48,5 +48,9 @@ func BuscarLinkValkey(ID string) (string, error) {
 }
 
 func DeletarLinkValkey(ID string) error {
-	return RDB.Del(Ctx, ID).Err()
+	if err := RDB.Del(Ctx, ID).Err(); err != nil {
+		models.ErroDeletarLinkCache.Log(err)
+		return err
+	}
+	return nil
 }
