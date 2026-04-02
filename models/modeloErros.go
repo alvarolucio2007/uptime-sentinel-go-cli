@@ -43,7 +43,5 @@ var (
 
 // Erros validação
 var (
-	ErroValidarURLParse           = GerenciadorErro{"Erro ao fazer parse do URL: "}
-	ErroValidarSchemeURL          = GerenciadorErro{"Erro ao validar o scheme ou host do URL: "}
-	ErroValidarSchemeHTTPHTTPSURL = GerenciadorErro{"Erro pois o scheme não é nem http nem https: "}
+	ErroValidacaoURL = GerenciadorErro{"Erro ao validar o URL: "}
 )
