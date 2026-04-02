@@ -4,7 +4,6 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
 	"github.com/alvarolucio2007/uptime-sentinel-go-cli/models"
 	_ "github.com/jackc/pgx/v5/stdlib"
@@ -59,7 +58,7 @@ func DeletarEntradaPostgres(ID string) error {
 	}
 	qtd, _ := res.RowsAffected()
 	if qtd == 0 {
-		log.Println("ID inexistente, nada deletado.")
+		fmt.Println("ID inexistente, nada deletado.")
 	}
 	return nil
 }
