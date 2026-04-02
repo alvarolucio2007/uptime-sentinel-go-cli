@@ -28,7 +28,7 @@ func validarURL(URL string) error {
 func validarStatus(statusChecar uint) error {
 	listaStatus := []uint{200, 201, 204, 301, 400, 401, 404}
 	if !slices.Contains(listaStatus, statusChecar) {
-		return errors.New("Status não está na lista de status aceitos")
+		return errors.New("status não está na lista de status aceitos")
 	}
 	return nil
 }
