@@ -35,3 +35,8 @@ var (
 	ErroBuscarLinkCache     = GerenciadorErro{"Erro ao buscar link no cache: "}
 	ErroDeletarLinkCache    = GerenciadorErro{"Erro ao deletar link no cache: "}
 )
+
+// Erros API Externa
+var (
+	ErroDecodeJSONAPIExterna = GerenciadorErro{"Erro ao tentar decodar JSON da API externa: "}
+)
