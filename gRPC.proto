@@ -1,8 +1,0 @@
-syntax="proto3";
-package models;
-option go_package="./pb";
-message LinkURLSemID{
-  string url=1;
-  uint64 periodo_segundos=2;
-  uint32 status_esperado=3;
-}
