@@ -30,20 +30,6 @@ func ConectarDatabase() error {
 	return nil
 }
 
-func MigrarBanco() error {
-	query := `CREATE TABLE IF NOT EXISTS linksSentinel (
-		ID SERIAL PRIMARY KEY,
-		URL TEXT UNIQUE NOT NULL,
-		PeriodoSegundos INTEGER NOT NULL DEFAULT 0,
-		StatusEsperado INTEGER NOT NULL
-	);`
-	if _, err := DB.Exec(query); err != nil {
-		return err
-	}
-	fmt.Println("Tabela pronta para uso.")
-	return nil
-}
-
 func CriarEntradaPostgres(dados models.ModeloLink) error {
 	if resultado := DB.Create(&dados); resultado.Error != nil {
 		models.ErroEntradaPostgres.Log(resultado.Error)
@@ -53,14 +39,13 @@ func CriarEntradaPostgres(dados models.ModeloLink) error {
 }
 
 func DeletarEntradaPostgres(ID string) error {
-	query := "DELETE FROM linksSentinel WHERE ID=$1"
-	res, err := DB.Exec(query, ID)
-	if err != nil {
-		models.ErroDeletePostgres.Log(err)
-		return err
+	resultado := DB.Delete(&models.ModeloLink{}, ID)
+	if resultado.Error != nil {
+		models.ErroDeletePostgres.Log(resultado.Error)
+		return resultado.Error
 	}
-	qtd, _ := res.RowsAffected()
-	if qtd == 0 {
+
+	if resultado.RowsAffected == 0 {
 		fmt.Println("ID inexistente, nada deletado.")
 	}
 	return nil
