@@ -5,5 +5,5 @@ import "net/http"
 
 func SetupExtRoutes() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("POST /cadastrar")
+	mux.HandleFunc("POST /cadastrar", HandlerAdd)
 }

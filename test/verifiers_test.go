@@ -25,7 +25,8 @@ func testVerificarLink(t *testing.T) {
 		{"Não passa: status inválido", models.ModeloLink{URL: "https://google.com", PeriodoSegundos: 2, StatusEsperado: 125}, false},
 	}
 	for _, testCase := range linksTeste {
-		if (verifiers.ValidacaoCompleta(&testCase.modeloLink) == nil) != testCase.passa {
+		err := (verifiers.ValidacaoCompleta(&testCase.modeloLink) != nil)
+		if err == testCase.passa {
 			t.Errorf("Erro: resultado de %s diferente do esperado %t", testCase.modeloLink.URL, testCase.passa)
 		}
 	}
