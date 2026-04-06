@@ -21,7 +21,7 @@ func ConectarDatabase() error {
 	}
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		models.ErroAberturaPostgres.Fatal(err)
+		models.ErroAberturaPostgres.Log(err)
 	}
 	if err = DB.AutoMigrate(&models.ModeloLink{}); err != nil {
 		models.ErroConexaoPostgres.Fatal(err)
