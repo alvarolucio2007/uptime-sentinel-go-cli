@@ -18,5 +18,4 @@ func HandlerAdd(w http.ResponseWriter, r *http.Request) error {
 		http.Error(w, models.ErroValidacaoStatus.Mensagem, http.StatusBadRequest)
 		return err
 	}
-	if err:=
 }
