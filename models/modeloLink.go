@@ -2,8 +2,8 @@
 package models
 
 type ModeloLink struct {
-	ID              int    `json:"id"`
-	URL             string `db:"URL" json:"url"`
-	PeriodoSegundos uint   `db:"PeriodoSegundos" json:"periodo_segundos"`
+	ID              int    `gorm:"primaryKey" json:"id"`
+	URL             string `gorm:"URL" json:"url"`
+	PeriodoSegundos uint   `gorm:"PeriodoSegundos" json:"periodo_segundos"`
 	StatusEsperado  uint   `json:"status_esperado"`
 }
