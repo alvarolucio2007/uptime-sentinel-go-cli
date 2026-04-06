@@ -55,8 +55,7 @@ func DeletarEntradaPostgres(ID string) error {
 
 func BuscarEntradaPostgres(ID string) (*models.ModeloLink, error) {
 	var linkEncontrado models.ModeloLink
-
-	res := DB.Where("ID LIKE ?", "%"+ID+"%").First(&linkEncontrado)
+	res := DB.Where("ID = ?", ID).First(&linkEncontrado)
 	if res.Error != nil {
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			models.ErroBuscaPostgres.Log(res.Error)
