@@ -26,7 +26,7 @@ func ConectarDatabase() error {
 		models.ErroAberturaPostgres.Log(err)
 	}
 	if err = DB.AutoMigrate(&models.ModeloLink{}); err != nil {
-		models.ErroConexaoPostgres.Fatal(err)
+		models.ErroConexaoPostgres.Log(err)
 	}
 	fmt.Println("Postgres conectado")
 	return nil
