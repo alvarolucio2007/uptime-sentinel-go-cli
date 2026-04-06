@@ -2,7 +2,9 @@
 package database
 
 import (
+	"errors"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/alvarolucio2007/uptime-sentinel-go-cli/models"
@@ -49,4 +51,19 @@ func DeletarEntradaPostgres(ID string) error {
 		fmt.Println("ID inexistente, nada deletado.")
 	}
 	return nil
+}
+
+func BuscarEntradaPostgres(ID string) (*models.ModeloLink, error) {
+	var linkEncontrado models.ModeloLink
+
+	res := DB.Where("ID LIKE ?", "%"+ID+"%").First(&linkEncontrado)
+	if res.Error != nil {
+		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
+			models.ErroBuscaPostgres.Log(res.Error)
+			return nil, res.Error
+		}
+		log.Print(models.ErroBuscaPostgresNEncontrado.Mensagem)
+		return nil, res.Error
+	}
+	return &linkEncontrado, nil
 }
