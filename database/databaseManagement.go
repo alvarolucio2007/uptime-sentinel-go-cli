@@ -2,23 +2,28 @@
 package database
 
 import (
-	"database/sql"
 	"fmt"
+	"os"
 
 	"github.com/alvarolucio2007/uptime-sentinel-go-cli/models"
 	_ "github.com/jackc/pgx/v5/stdlib"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-var DB *sql.DB
+var DB *gorm.DB
 
 func ConectarDatabase() error {
 	var err error
-	dsn := "host=localhost user=user password=password dbname=sentinel sslmode=disable"
-	DB, err = sql.Open("pgx", dsn)
+	dsn := os.Getenv("DATABASE_URL")
+	if dsn == "" {
+		dsn = "host=localhost user=user password=password dbname=sentinel sslmode=disable"
+	}
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		models.ErroAberturaPostgres.Fatal(err)
 	}
-	if err = DB.Ping(); err != nil {
+	if err = DB.AutoMigrate(&models.ModeloLink{}); err != nil {
 		models.ErroConexaoPostgres.Fatal(err)
 	}
 	fmt.Println("Postgres conectado")
