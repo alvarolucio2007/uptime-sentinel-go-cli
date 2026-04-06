@@ -31,10 +31,7 @@ func ConectarDatabase() error {
 }
 
 func checarResultadoPostgres(resultado *gorm.DB) error {
-	if resultado.Error != nil {
-		return resultado.Error
-	}
-	return nil
+	return resultado.Error
 }
 
 func CriarEntradaPostgres(URL string, periodo, statusEsperado uint) error {
