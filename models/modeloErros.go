@@ -24,8 +24,8 @@ var (
 	ErroEntradaPostgres = GerenciadorErro{"Erro ao criar item: "}
 	ErroDeletePostgres  = GerenciadorErro{"Erro ao deletar item: "}
 	// Erros de procura no Postgres
-	ErroBuscaPostgresNEncontrado = GerenciadorErro{"Livro não encontrado por ID"}
-	ErroBuscaPostgres            = GerenciadorErro{"Erro ao buscar livro na DB: "}
+	ErroBuscaPostgresNEncontrado = GerenciadorErro{"Item não encontrado por ID"}
+	ErroBuscaPostgres            = GerenciadorErro{"Erro ao buscar Item na DB: "}
 )
 
 // Erros cache
